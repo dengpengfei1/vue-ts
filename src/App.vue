@@ -1,19 +1,62 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id='app'>
+    <HelloWorld dd="dd"></HelloWorld>
+    <button @click='handler'>click</button>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang='ts'>
+import HelloWorld from './components/HelloWorld.vue';
+import { Vue, Component, Provide } from 'vue-property-decorator';
 
-export default {
-  name: 'app',
+interface Person {
+  getName(): string;
+  getAge(): number;
+}
+
+function setDesc(desc: string) {
+  return function(target) {
+    target.prototype.desc = desc;
+  };
+}
+
+@setDesc('a')
+class P implements Person {
+  name: string = 'aa';
+  age: number = 10;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  getName() {
+    return this.name;
+  }
+  getAge() {
+    return this.age;
+  }
+}
+
+@Component({
   components: {
     HelloWorld
   }
+})
+class App extends Vue {
+  man: any = null;
+  // eslint-disable-next-line no-undef
+  @Provide() obj: object = {flag: true};
+  handler() {
+    this.man = new P('t', 2);
+    // eslint-disable-next-line no-console
+    console.log(this.man.getAge());
+  }
+  mounted() {
+    // eslint-disable-next-line no-console
+    console.log(324);
+  }
 }
+
+export default App;
 </script>
 
 <style>

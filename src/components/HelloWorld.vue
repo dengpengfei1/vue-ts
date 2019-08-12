@@ -17,9 +17,6 @@ class HelloWorld extends Vue {
     required: false,
     default: ''
     }) dd!:string;
-  // props =  {
-  //   msg: String
-  // }
   handler () {
     console.log(this.dd);
 
@@ -30,7 +27,3 @@ class HelloWorld extends Vue {
 }
 export default HelloWorld
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
